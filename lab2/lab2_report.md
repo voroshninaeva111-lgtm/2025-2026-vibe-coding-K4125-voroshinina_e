@@ -1,4 +1,4 @@
-<img width="660" height="771" alt="Снимок экрана 2026-04-13 в 10 49 31 AM" src="https://github.com/user-attachments/assets/323d6bf9-2c24-408b-88e3-0f6954e7e5da" />University: [ITMO University](https://itmo.ru/ru/)
+University: [ITMO University](https://itmo.ru/ru/)
 Faculty: [FICT](https://fict.itmo.ru)
 Course: [Vibe Coding: AI-боты для бизнеса](https://github.com/itmo-ict-faculty/vibe-coding-for-business)
 Year: 2025/2026
@@ -48,7 +48,9 @@ Open-Meteo API
   }
 }
 
-# 🤖 Промпт для LLM
+---
+
+**# 🤖 Промпт для LLM**
 Исходный промпт
 
 Улучши моего Telegram-бота StyleBot, добавив интеграцию с API погоды Open-Meteo.
@@ -137,7 +139,7 @@ python-dotenv — работа с переменными окружения
 # Скриншоты
 
 Вот тут видно, что не получается сначала, а потом выдает и погоду, и что надеть
-<img width="660" height="771" alt="Снимок экрана 2026-04-13 в 10 49 31 AM" src="https://github.com/user-attachments/assets/de8a310c-7939-4159-b58d-9c888c8c8b7c" />
+<img width="660" height="771" alt="Снимок экрана 2026-04-13 в 10 49 31 AM" src="https://github.com/user-attachments/assets/323d6bf9-2c24-408b-88e3-0f6954e7e5da" />
 
 
 # Видео-демо
