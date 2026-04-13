@@ -1,0 +1,46 @@
+{
+  "users": {
+    "949848302": {
+      "user_id": 949848302,
+      "username": "evvoroshnina",
+      "preferred_style": "classic",
+      "favorite_colors": [
+        "бежевый"
+      ],
+      "disliked_colors": [
+        "синий"
+      ],
+      "gender": null,
+      "seasonal_preferences": null,
+      "notes": "",
+      "wardrobe": [],
+      "history": [
+        {
+          "text": "что мне надеть на свидание в кино?",
+          "query_type": "outfit",
+          "date": "2026-04-13T06:21:08.631409+00:00"
+        },
+        {
+          "text": "Собери чемодан в Париж на 3 дня",
+          "query_type": "trip",
+          "date": "2026-04-13T06:23:57.179992+00:00"
+        },
+        {
+          "text": "Собери чемодан в Стамбул на 3 дня",
+          "query_type": "trip",
+          "date": "2026-04-13T06:25:03.315158+00:00"
+        },
+        {
+          "text": "что мне надеть в париже?",
+          "query_type": "trip",
+          "date": "2026-04-13T07:12:08.923895+00:00"
+        },
+        {
+          "text": "Что надеть завтра в москве?",
+          "query_type": "outfit",
+          "date": "2026-04-13T07:37:20.847732+00:00"
+        }
+      ]
+    }
+  }
+}
