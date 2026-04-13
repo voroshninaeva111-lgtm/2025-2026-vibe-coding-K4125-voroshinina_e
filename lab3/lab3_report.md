@@ -1,5 +1,6 @@
 # Лабораторная работа 3  
 ## Запуск бота для реального использования
+@itmoftmi_vep_bot
 
 **University:** ITMO University  
 **Faculty:** FICT  
