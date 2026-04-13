@@ -1124,33 +1124,30 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     try:
         record = get_user_record(user.id)
         record.username = user.username
-except Exception as exc:
-    await update.message.reply_text(f"Ошибка: {str(exc)}")
-    return
 
-# Погодный сценарий: "погода в город"
-city_for_weather = _extract_city_after_phrase(raw_text, "погода в")
-if city_for_weather:
-    try:
-        temp = get_weather(city_for_weather)
-        await update.message.reply_text(
-            format_weather_response(city_for_weather, temp)
-        )
-    except Exception as exc:
-        await update.message.reply_text(f"Ошибка: {str(exc)}")
-    return
+        # Погодный сценарий: "погода в город"
+        city_for_weather = _extract_city_after_phrase(raw_text, "погода в")
+        if city_for_weather:
+            try:
+                temp = get_weather(city_for_weather)
+                await update.message.reply_text(
+                    format_weather_response(city_for_weather, temp)
+                )
+            except Exception as exc:
+                await update.message.reply_text(f"Ошибка: {str(exc)}")
+            return
 
-# Погодный сценарий: "что надеть в город"
-city_for_outfit = _extract_city_after_phrase(raw_text, "что надеть в")
-if city_for_outfit:
-    try:
-        temp = get_weather(city_for_outfit)
-        await update.message.reply_text(
-            format_weather_response(city_for_outfit, temp)
-        )
-    except Exception as exc:
-        await update.message.reply_text(f"Ошибка: {str(exc)}")
-    return
+        # Погодный сценарий: "что надеть в город"
+        city_for_outfit = _extract_city_after_phrase(raw_text, "что надеть в")
+        if city_for_outfit:
+            try:
+                temp = get_weather(city_for_outfit)
+                await update.message.reply_text(
+                    format_weather_response(city_for_outfit, temp)
+                )
+            except Exception as exc:
+                await update.message.reply_text(f"Ошибка: {str(exc)}")
+            return
 
         intent = detect_intent(raw_text)
 
