@@ -1124,6 +1124,9 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     try:
         record = get_user_record(user.id)
         record.username = user.username
+except Exception as exc:
+    await update.message.reply_text(f"Ошибка: {str(exc)}")
+    return
 
 # Погодный сценарий: "погода в город"
 city_for_weather = _extract_city_after_phrase(raw_text, "погода в")
