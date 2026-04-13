@@ -42,14 +42,11 @@ Open-Meteo API
 Пример:
 
 ```json
-
 {
   "current": {
     "temperature_2m": 7.7
   }
 }
-
----
 
 # 🤖 Промпт для LLM
 
