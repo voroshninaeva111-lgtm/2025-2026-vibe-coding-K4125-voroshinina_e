@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import random
 import re
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
@@ -392,7 +393,23 @@ def get_weather(city: str) -> float:
         raise RuntimeError("Не удалось получить температуру.")
 
     return float(temperature)
+def random_intro() -> str:
+    phrases = [
+        "Вот что я нашёл 👇",
+        "Смотри 👇",
+        "Вот актуальная информация 👇",
+        "Проверил для тебя 👇"
+    ]
+    return random.choice(phrases)
 
+
+def format_weather_response(city: str, temp: float) -> str:
+    return (
+        f"{random_intro()}\n\n"
+        f"🌍 Город: {city.title()}\n"
+        f"🌡 Температура: {temp}°C\n\n"
+        f"{_clothes_by_temperature(temp)}"
+    )
 
 def _extract_city_after_phrase(text: str, phrase: str) -> Optional[str]:
     """Извлекает город после фразы (например, 'погода в')."""
@@ -409,14 +426,33 @@ def _extract_city_after_phrase(text: str, phrase: str) -> Optional[str]:
 
 
 def _clothes_by_temperature(temp: float) -> str:
-    """Короткая рекомендация одежды только по температуре."""
     if temp < 5:
-        return "куртку, шарф и тёплую одежду"
-    if 5 <= temp <= 15:
-        return "пальто или кофту и закрытую обувь"
-    if 15 < temp <= 25:
-        return "лёгкую одежду и удобную обувь"
-    return "летнюю одежду и лёгкую обувь"
+        return (
+            "🧥 Рекомендация:\n"
+            "— тёплая куртка\n"
+            "— шарф\n"
+            "— утеплённая обувь"
+        )
+    elif 5 <= temp < 15:
+        return (
+            "🧥 Рекомендация:\n"
+            "— пальто или куртка\n"
+            "— кофта\n"
+            "— закрытая обувь"
+        )
+    elif 15 <= temp < 25:
+        return (
+            "👕 Рекомендация:\n"
+            "— лёгкая одежда\n"
+            "— кроссовки или кеды"
+        )
+    else:
+        return (
+            "☀️ Рекомендация:\n"
+            "— футболка\n"
+            "— шорты, юбка или лёгкое платье\n"
+            "— лёгкая обувь"
+        )
 
 
 def detect_intent(text: str) -> str:
@@ -1089,33 +1125,29 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         record = get_user_record(user.id)
         record.username = user.username
 
-        # Погодный сценарий: "погода в город"
-        city_for_weather = _extract_city_after_phrase(raw_text, "погода в")
-        if city_for_weather:
-            try:
-                temp = get_weather(city_for_weather)
-                await update.message.reply_text(f"🌤 Температура в {city_for_weather}: {round(temp)}°C")
-            except ValueError as exc:
-                await update.message.reply_text(str(exc))
-            except RuntimeError as exc:
-                await update.message.reply_text(f"Не удалось получить погоду: {exc}")
-            return
+# Погодный сценарий: "погода в город"
+city_for_weather = _extract_city_after_phrase(raw_text, "погода в")
+if city_for_weather:
+    try:
+        temp = get_weather(city_for_weather)
+        await update.message.reply_text(
+            format_weather_response(city_for_weather, temp)
+        )
+    except Exception as exc:
+        await update.message.reply_text(f"Ошибка: {str(exc)}")
+    return
 
-        # Погодный сценарий: "что надеть в город"
-        city_for_outfit = _extract_city_after_phrase(raw_text, "что надеть в")
-        if city_for_outfit:
-            try:
-                temp = get_weather(city_for_outfit)
-                recommendation = _clothes_by_temperature(temp)
-                await update.message.reply_text(
-                    f"Температура в {city_for_outfit}: {round(temp)}°C\n"
-                    f"Рекомендация: надень {recommendation}."
-                )
-            except ValueError as exc:
-                await update.message.reply_text(str(exc))
-            except RuntimeError as exc:
-                await update.message.reply_text(f"Не удалось получить погоду: {exc}")
-            return
+# Погодный сценарий: "что надеть в город"
+city_for_outfit = _extract_city_after_phrase(raw_text, "что надеть в")
+if city_for_outfit:
+    try:
+        temp = get_weather(city_for_outfit)
+        await update.message.reply_text(
+            format_weather_response(city_for_outfit, temp)
+        )
+    except Exception as exc:
+        await update.message.reply_text(f"Ошибка: {str(exc)}")
+    return
 
         intent = detect_intent(raw_text)
 
